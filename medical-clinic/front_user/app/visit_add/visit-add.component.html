@@ -1,0 +1,51 @@
+{{aaa}}
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <div class="navbar-brand">Przychodnia Lekarska</div>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a routerLink="/myuser" routerLinkActive="active">Moje dane</a></li>
+            <li><a routerLink="/myvisits" routerLinkActive="active">Moje wizyty</a></li>
+            <li><a routerLink="/doctorsuser" routerLinkActive="active">Nasi doktorzy</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <button type="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-user"></span> {{login.user.firstName}} {{login.user.lastName}}</button>
+            <a routerLink="/login" routerLinkActive="active"><button type="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-log-out"></span> Wyloguj się</button></a>
+        </ul>
+    </div>
+</nav>
+<div class="panel panel-primary">
+    <div class="panel-heading">Zapis na wizytę</div>
+    <div class="panel-body">
+        <form (ngSubmit)="addVisit()" id="" #visitForm="ngForm">
+            <div class="row">
+                <div class="col-sm-6">
+
+                    <div class="form-group">
+                        <label for="doctor">Doktor: {{doctor.firstName}} {{doctor.lastName}}</label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="specialization">Specializacja: {{doctor.medicalSpecialization.specializationName}}</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="doctor">Pacjent: {{login.user.firstName}} {{login.user.lastName}}</label>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <label for="date">Data wizyty:</label>
+                        </div>
+                        <div>
+                            <select type="text" class="form-control" id="checkedVisit" name="checkedVisit" [(ngModel)]="checkedVisit" required>
+            <option *ngFor="let item of listVisits" [ngValue]="item">{{item.date}} {{item.time}}</option>
+            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Zapisz się</button>
+        </form>
+    </div>
+</div>

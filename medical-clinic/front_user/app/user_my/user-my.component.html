@@ -1,0 +1,129 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <div class="navbar-brand">Przychodnia Lekarska</div>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a routerLink="/myuser" routerLinkActive="active">Moje dane</a></li>
+      <li><a routerLink="/myvisits" routerLinkActive="active">Moje wizyty</a></li>
+      <li><a routerLink="/doctorsuser" routerLinkActive="active">Nasi doktorzy</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+     <button type="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-user"></span> {{login.user.firstName}} {{login.user.lastName}}</button> 
+      <a routerLink="/login" routerLinkActive="active"><button type="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-log-out"></span> Wyloguj się</button></a>
+    </ul>
+  </div>
+</nav>
+<div class="panel panel-primary">
+  <div class="panel-heading">Edytowanie danych użytkownika</div>
+  <div class="panel-body">
+    <form (ngSubmit)="editUser()" #registerForm="ngForm">
+      <div class="row">
+        <div class="col-sm-6">
+
+          <div class="form-group">
+            <label for="login">Login:</label>
+            <input type="text" disabled class="form-control" id="login" name="login" [(ngModel)]="login.login">
+          </div>
+
+          <div class="form-group">
+            <label for="password">Hasło:</label>
+            <input type="password" class="form-control" placeholder="Hasło" id="password" name="password" [(ngModel)]="login.password"
+              #password="ngModel" required minlength="5">
+            <div *ngIf="password.errors && (password.dirty || password.touched)" class="alert alert-danger">
+              <div [hidden]="!password.errors.required">Hasło jest wymagane</div>
+              <div [hidden]="!password.errors.minlength">Hasło musi mieć min. 5 znaków</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" placeholder="Email" id="email" name="email" [(ngModel)]="model.email" #email="ngModel"
+              required>
+            <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
+              <div [hidden]="!email.errors.required">Email jest wymagany</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="firstName">Imię:</label>
+            <input type="text" class="form-control" disabled id="firstName" name="firstName" [(ngModel)]="model.firstName" #firstName="ngModel">
+          </div>
+
+          <div class="form-group">
+            <label for="lastName">Nazwisko:</label>
+            <input type="text" disabled class="form-control" placeholder="Nazwisko" id="lastName" name="lastName" [(ngModel)]="model.lastName"
+              #lastName="ngModel">
+          </div>
+
+          <div class="form-group">
+            <label for="pesel">Pesel:</label>
+            <input type="text" class="form-control" placeholder="Pesel" id="pesel" name="pesel" [(ngModel)]="model.pesel" #pesel="ngModel">
+          </div>
+
+          <div class="form-group">
+            <label for="dateOfBirth">Data urodzenia:</label>
+            <input type="date" disabled class="form-control" id="dateOfBirth" name="dateOfBirth" [(ngModel)]="model.dateOfBirth" #dateOfBirth="ngModel">
+          </div>
+
+        </div>
+
+        <div class="col-sm-6">
+
+          <div class="form-group">
+            <label for="streetName">Ulica:</label>
+            <input type="text" class="form-control" placeholder="Nazwa ulicy" id="streetName" name="streetName" [(ngModel)]="model.streetName"
+              #streetName="ngModel" pattern="[A-ZĄĘŁŃÓŚŹŻ]{1}[a-ząćęłńóśźż]*" required>
+            <div *ngIf="streetName.errors && (streetName.dirty || streetName.touched)" class="alert alert-danger">
+              <div [hidden]="!streetName.errors.required">Ulica jest wymagana</div>
+              <div [hidden]="!streetName.errors.pattern">Ulica jest niepoprawna</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="streetNumber">Numer ulicy:</label>
+            <input type="text" class="form-control" placeholder="Numer ulicy" id="streetNumber" name="streetNumber" [(ngModel)]="model.streetNumber"
+              #streetNumber="ngModel" pattern="[0-9]*" required>
+            <div *ngIf="streetNumber.errors && (streetNumber.dirty || streetNumber.touched)" class="alert alert-danger">
+              <div [hidden]="!streetNumber.errors.required">Numer ulicy jest wymagany</div>
+              <div [hidden]="!streetNumber.errors.pattern">Numer ulicy jest niepoprawny</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="homeNumber">Numer mieszkania:</label>
+            <input type="text" class="form-control" placeholder="Numer domu" id="homeNumber" name="homeNumber" [(ngModel)]="model.homeNumber"
+              #homeNumber="ngModel" pattern="[0-9]*">
+            <div *ngIf="homeNumber.errors && (homeNumber.dirty || homeNumber.touched)" class="alert alert-danger">
+              <div [hidden]="!homeNumber.errors.pattern">Numer domu jest niepoprawny</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="postcode">Kod pocztowy:</label>
+            <input type="text" class="form-control" placeholder="Kod pocztowy" id="postcode" name="postcode" [(ngModel)]="model.postcode"
+              #postcode="ngModel" pattern="[0-9]{2}-[0-9]{3}" required>
+            <div *ngIf="postcode.errors && (postcode.dirty || postcode.touched)" class="alert alert-danger">
+              <div [hidden]="!postcode.errors.required">Kod pocztowy jest wymagany</div>
+              <div [hidden]="!postcode.errors.pattern">Kod pocztowy jest niepoprawny</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="city">Miasto:</label>
+            <input type="text" class="form-control" placeholder="Nazwa miasta" id="city" name="city" [(ngModel)]="model.city" #city="ngModel"
+              pattern="[A-ZĄĘŁŃÓŚŹŻ]{1}[a-ząćęłńóśźż]*" required>
+            <div *ngIf="city.errors && (city.dirty || city.touched)" class="alert alert-danger">
+              <div [hidden]="!city.errors.required">Miasto jest wymagane</div>
+              <div [hidden]="!city.errors.pattern">Miasto jest niepoprawne</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <br>
+      <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Edytuj dane</button>
+
+    </form>
+  </div>
+</div>

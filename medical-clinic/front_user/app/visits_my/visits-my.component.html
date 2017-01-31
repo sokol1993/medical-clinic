@@ -1,0 +1,47 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <div class="navbar-brand">Przychodnia Lekarska</div>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a routerLink="/myuser" routerLinkActive="active">Moje dane</a></li>
+      <li><a routerLink="/myvisits" routerLinkActive="active">Moje wizyty</a></li>
+      <li><a routerLink="/doctorsuser" routerLinkActive="active">Nasi doktorzy</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <button type="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-user"></span> {{login.user.firstName}} {{login.user.lastName}}</button>
+      <a routerLink="/login" routerLinkActive="active"><button type="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-log-out"></span> Wyloguj się</button></a>
+    </ul>
+  </div>
+</nav>
+<div class="panel panel-primary">
+  <div class="panel-heading">Lista moich wizyt</div>
+  <div class="panel-body">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>Ukończona</th>
+          <th>Imię doktora</th>
+          <th>Nazwisko doktora</th>
+          <th>Specializacja doktora</th>
+          <th>Faktura</th>
+        </tr>
+      </thead>
+      <tbody>
+        <template ngFor let-visit [ngForOf]="visits">
+          <tr>
+            <td>{{visit.date}}</td>
+            <td *ngIf="visit.completed !== false">Tak</td>
+            <td *ngIf="visit.completed !== true">Nie</td>
+            <td>{{visit.doctor.firstName}}</td>
+            <td>{{visit.doctor.lastName}}</td>
+            <td>{{visit.doctor.medicalSpecialization.specializationName}}</td>
+            <td *ngIf="visit.completed !== false"><button type="submit" (click)="getDocument(visit)" class="btn btn-link">Faktura</button></td>
+            <td *ngIf="visit.completed !== true">Brak faktury</td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+  </div>
+</div>

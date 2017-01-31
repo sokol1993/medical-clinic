@@ -1,0 +1,113 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <div class="navbar-brand">Przychodnia Lekarska</div>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a routerLink="/mydoctor" routerLinkActive="active">Moje dane</a></li>
+      <li><a routerLink="/doctorvisits" routerLinkActive="active">Moje wizyty</a></li>
+      <li><a routerLink="/createvisitlist" routerLinkActive="active">Stwórz zapisy</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+     <button type="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-user"></span> {{login.doctor.firstName}} {{login.doctor.lastName}}</button> 
+      <a routerLink="/login" routerLinkActive="active"><button type="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-log-out"></span> Wyloguj się</button></a>
+    </ul>
+  </div>
+</nav>
+<div class="panel panel-primary">
+  <div class="panel-heading">Edytowanie danych doktora</div>
+  <div class="panel-body">
+    <form (ngSubmit)="editDoctor()" #registerForm="ngForm">
+      <div class="row">
+        <div class="col-sm-6">
+
+          <div class="form-group">
+            <label for="login">Login:</label>
+            <input type="text" disabled class="form-control" id="login" name="login" [(ngModel)]="login.login" >
+          </div>
+
+          <div class="form-group">
+            <label for="password">Hasło:</label>
+            <input type="password" class="form-control" placeholder="Hasło" id="password" name="password" [(ngModel)]="login.password"
+              #password="ngModel" required minlength="5">
+            <div *ngIf="password.errors && (password.dirty || password.touched)" class="alert alert-danger">
+              <div [hidden]="!password.errors.required">Hasło jest wymagane</div>
+              <div [hidden]="!password.errors.minlength">Hasło musi mieć min. 5 znaków</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="firstName">Imię:</label>
+            <input type="text" disabled class="form-control" id="firstName" name="firstName" [(ngModel)]="model.firstName">
+          </div>
+
+          <div class="form-group">
+            <label for="lastName">Nazwisko:</label>
+            <input type="text" disabled class="form-control" placeholder="Nazwisko" id="lastName" name="lastName" [(ngModel)]="model.lastName">
+          </div>
+
+          <div class="form-group">
+            <label for="medicalSpecialization">Specjalizacja:</label>
+            <input type="text" disabled class="form-control" id="medicalSpecialization" name="medicalSpecialization" [(ngModel)]="model.medicalSpecialization.specializationName">
+            
+            
+          </div>
+        </div>
+        <div class="col-sm-6">
+
+          <div class="form-group">
+            <label for="mondayHours">Poniedziałek:</label>
+            <input type="text" class="form-control" placeholder="Godziny pracy" id="mondayHours" name="mondayHours" [(ngModel)]="model.mondayHours"
+              #mondayHours="ngModel" pattern="[0-2]{1}[0-3]{1}:[0-5]{1}[0-9]{1} - [0-2]{1}[0-3]{1}:[0-5]{1}[0-9]{1}" required>
+            <div *ngIf="mondayHours.errors && (mondayHours.dirty || mondayHours.touched)" class="alert alert-danger">
+              <div [hidden]="!mondayHours.errors.required">Godziny są wymagane</div>
+              <div [hidden]="!mondayHours.errors.pattern">Wpisz w formacie: HH:mm - HH:mm</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="tuesdayHours">Wtorek:</label>
+            <input type="text" class="form-control" placeholder="Godziny pracy" id="tuesdayHours" name="tuesdayHours" [(ngModel)]="model.tuesdayHours"
+              #tuesdayHours="ngModel" pattern="[0-2]{1}[0-3]{1}:[0-5]{1}[0-9]{1} - [0-2]{1}[0-3]{1}:[0-5]{1}[0-9]{1}" required>
+            <div *ngIf="tuesdayHours.errors && (tuesdayHours.dirty || tuesdayHours.touched)" class="alert alert-danger">
+              <div [hidden]="!tuesdayHours.errors.required">Godziny są wymagane</div>
+              <div [hidden]="!tuesdayHours.errors.pattern">Wpisz w formacie: HH:mm - HH:mm</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="wednesdayHours">Środa:</label>
+            <input type="text" class="form-control" placeholder="Godziny pracy" id="wednesdayHours" name="wednesdayHours" [(ngModel)]="model.wednesdayHours"
+              #wednesdayHours="ngModel" pattern="[0-2]{1}[0-3]{1}:[0-5]{1}[0-9]{1} - [0-2]{1}[0-3]{1}:[0-5]{1}[0-9]{1}" required>
+            <div *ngIf="wednesdayHours.errors && (wednesdayHours.dirty || wednesdayHours.touched)" class="alert alert-danger">
+              <div [hidden]="!wednesdayHours.errors.required">Godziny są wymagane</div>
+              <div [hidden]="!wednesdayHours.errors.pattern">Wpisz w formacie: HH:mm - HH:mm</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="thursdayHours">Czwartek:</label>
+            <input type="text" class="form-control" placeholder="Godziny pracy" id="thursdayHours" name="thursdayHours" [(ngModel)]="model.thursdayHours"
+              #thursdayHours="ngModel" pattern="[0-2]{1}[0-3]{1}:[0-5]{1}[0-9]{1} - [0-2]{1}[0-3]{1}:[0-5]{1}[0-9]{1}" required>
+            <div *ngIf="thursdayHours.errors && (thursdayHours.dirty || thursdayHours.touched)" class="alert alert-danger">
+              <div [hidden]="!thursdayHours.errors.required">Godziny są wymagane</div>
+              <div [hidden]="!thursdayHours.errors.pattern">Wpisz w formacie: HH:mm - HH:mm</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="fridayHours">Piątek:</label>
+            <input type="text" class="form-control" placeholder="Godziny pracy" id="fridayHours" name="fridayHours" [(ngModel)]="model.fridayHours"
+              #fridayHours="ngModel" pattern="[0-2]{1}[0-3]{1}:[0-5]{1}[0-9]{1} - [0-2]{1}[0-3]{1}:[0-5]{1}[0-9]{1}" required>
+            <div *ngIf="fridayHours.errors && (fridayHours.dirty || fridayHours.touched)" class="alert alert-danger">
+              <div [hidden]="!fridayHours.errors.required">Godziny są wymagane</div>
+              <div [hidden]="!fridayHours.errors.pattern">Wpisz w formacie: HH:mm - HH:mm</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Edytuj</button>
+    </form>
+  </div>
+</div>

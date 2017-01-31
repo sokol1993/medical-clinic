@@ -1,0 +1,48 @@
+{
+  "LoginPage": {
+    "Login": "Nombre de usuario",
+    "Password": "Contraseña",
+    "Log": "Iniciar sesión",
+    "Sign": "Iniciar la sesión",
+    "Fails": "Nombre de usuario y la contraseña incorrecta"
+    
+  },
+  "RegisterPage": {
+    "UserRegister": "Registro de usuarios",
+    "Login": "Iniciar sesión",
+    "LoginRequired":"Iniciar sesión en que se requiere",
+    "LoginMinLength": "Inicio de sesión debe ser de al menos 5 caracteres",
+    "LoginExists": "Nombre de usuario ya existe",
+    "Password": "Contraseña",
+    "PasswordRequired": "Se requiere una contraseña",
+    "PasswordMinLength": "La contraseña debe tener un mínimo de 5 caracteres",
+    "Email": "Correo electrónico",
+    "EmailRequired": "Se requiere de correo electrónico",
+    "FirstName": "Nombre",
+    "FirstNameRequired": "El nombre es necesario",
+    "FirstNamePattern": "Nombre es incorrecto",
+    "LastName": "Apellido",
+    "LastNameRequired": "Se requiere el apellido",
+    "LastNamePattern": "El apellido es incorrecto",
+    "Pesel": "Carné de identidad",
+    "PeselRequired": "Id es necesario",
+    "PeselPattern": "El id es incorrecto",
+    "DateOfBirth": "Fecha de nacimiento",
+    "DateOfBirthRequired": "Se requiere Fecha de nacimiento",
+    "StreetName": "Calle",
+    "StreetNameRequired": "Se requiere la calle",
+    "StreetNamePattern": "La calle es incorrecta",
+    "StreetNumber": "Número de la calle",
+    "StreetNumberRequired": "Se requiere el número de la calle",
+    "StreetNumberPattern": "Número de la calle es incorrecta",
+    "HomeNumber": "Número del apartamento",
+    "HomeNumberPattern": "Número del apartamento es incorrecta",
+    "Postcode": "Código postal",
+    "PostcodeRequired": "Se requiere código Postal",
+    "PostcodePattern": "Código postal no es válido",
+    "City": "Ciudad",
+    "CityRequired": "Se requiere la ciudad",
+    "CityPattern": "La ciudad es incorrecta",
+    "RegisterIn": "Contratar"
+  }
+}

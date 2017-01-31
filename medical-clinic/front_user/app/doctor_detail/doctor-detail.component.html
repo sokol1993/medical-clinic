@@ -1,0 +1,59 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <div class="navbar-brand">Przychodnia Lekarska</div>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a routerLink="/addDoctors" routerLinkActive="active">Zarejestruj doktora</a></li>
+      <li><a routerLink="/doctors" routerLinkActive="active">Nasi doktorzy</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <a routerLink="/register" routerLinkActive="active"><button type="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-user"></span> Zarejestruj się</button></a>
+      <a routerLink="/login" routerLinkActive="active"><button type="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-log-in"></span> Zaloguj się</button></a>
+    </ul>
+  </div>
+</nav>
+<div *ngIf="doctor">
+  <div class="panel panel-primary">
+    <div class="panel-heading">Profil: {{doctor.firstName}} {{doctor.lastName}}</div>
+    <div class="panel-body">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Imię </th>
+            <th>Nazwisko</th>
+            <th>Specjalizacja</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{doctor.firstName}}</td>
+            <td>{{doctor.lastName}}</td>
+            <td>{{doctor.medicalSpecialization.specializationName}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <h2>Godziny przyjęć</h2>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Poniedziałek</th>
+            <th>Wtorek</th>
+            <th>Środa</th>
+            <th>Czwartek</th>
+            <th>Piątek</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{doctor.mondayHours}}</td>
+            <td>{{doctor.tuesdayHours}}</td>
+            <td>{{doctor.wednesdayHours}}</td>
+            <td>{{doctor.thursdayHours}}</td>
+            <td>{{doctor.fridayHours}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="btn btn-default" (click)="goBack()">Wróć</button>
+    </div>
+  </div>

@@ -1,0 +1,50 @@
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <div class="navbar-brand">Przychodnia Lekarska</div>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a routerLink="/mydoctor" routerLinkActive="active">Moje dane</a></li>
+            <li><a routerLink="/doctorvisits" routerLinkActive="active">Moje wizyty</a></li>
+            <li><a routerLink="/createvisitlist" routerLinkActive="active">Stwórz zapisy</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <button type="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-user"></span> {{login.doctor.firstName}} {{login.doctor.lastName}}</button>
+            <a routerLink="/login" routerLinkActive="active"><button type="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-log-out"></span> Wyloguj się</button></a>
+        </ul>
+    </div>
+</nav>
+<div class="panel panel-primary">
+    <div class="panel-heading">Tworzenie listy zapisów na wizytę</div>
+    <div class="panel-body">
+        <form (ngSubmit)="addVisitList()" id="" #visitForm="ngForm">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="doctor">Doktor: {{login.doctor.firstName}} {{login.doctor.lastName}}</label>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <label for="date">Liczba miejsc:</label>
+                        </div>
+                        <div>
+                            <input type="number" min="1" max="20" class="form-control" id="availableVisits" name="availableVisits" [(ngModel)]="visitsList.availableVisits"
+                                #availableVisits="ngModel" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <label for="date">Data wizyty:</label>
+                        </div>
+                        <div>
+                            <input type="datetime-local" class="form-control" id="date" name="date" [(ngModel)]="time" required>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Zapisz się</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <div class="navbar-brand">Przychodnia Lekarska</div>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a routerLink="/addDoctors" routerLinkActive="active">Zarejestruj doktora</a></li>
+            <li><a routerLink="/doctors" routerLinkActive="active">Nasi doktorzy</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <a routerLink="/register" routerLinkActive="active"><button type="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-user"></span> Zarejestruj się</button></a>
+            <a routerLink="/login" routerLinkActive="active"><button type="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-log-in"></span> Zaloguj się</button></a>
+        </ul>
+    </div>
+</nav>
+<div class="btn-group">
+    <button *ngFor="let lang of supportedLangs" (click)="selectLang(lang.value)" class="btn btn-default" [class.btn-primary]="isCurrentLang(lang.value)">
+      {{ lang.display }}
+    </button>
+</div>
+<br>
+<br>
+<alert></alert>
+<br>
+<div class="panel panel-primary">
+    <div class="panel-heading">{{"LoginPage.Log"|translate}}</div>
+    <div class="panel-body">
+        <form (ngSubmit)="log()" #loginForm="ngForm">
+            <div class="row">
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="login">{{"LoginPage.Login"|translate}}</label>
+                        <input type="text" class="form-control" placeholder='{{"LoginPage.Login"|translate}}' id="login" name="login" [(ngModel)]="model.login"
+                            #login="ngModel" required>
+                        <div *ngIf="login.errors && (login.dirty || login.touched)" class="alert alert-danger">
+                            <div [hidden]="!login.errors.required">Login jest wymagany</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">{{"LoginPage.Password"|translate}}</label>
+                        <input type="password" class="form-control" placeholder='{{"LoginPage.Password"|translate}}' id="password" name="password"
+                            [(ngModel)]="model.password" #password="ngModel" required>
+                        <div *ngIf="password.errors && (password.dirty || password.touched)" class="alert alert-danger">
+                            <div [hidden]="!password.errors.required">Hasło jest wymagane</div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> {{"LoginPage.Sign"|translate}}</button>
+                </div>
+                <div class="col-sm-2">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div>

@@ -1,0 +1,68 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <div class="navbar-brand">Przychodnia Lekarska</div>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a routerLink="/mydoctor" routerLinkActive="active">Moje dane</a></li>
+      <li><a routerLink="/doctorvisits" routerLinkActive="active">Moje wizyty</a></li>
+      <li><a routerLink="/createvisitlist" routerLinkActive="active">Stwórz zapisy</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <button type="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-user"></span> {{login.doctor.firstName}} {{login.doctor.lastName}}</button>
+      <a routerLink="/login" routerLinkActive="active"><button type="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-log-out"></span> Wyloguj się</button></a>
+    </ul>
+  </div>
+</nav>
+<div class="panel panel-primary">
+  <div class="panel-heading">Lista moich zapisów</div>
+  <div class="panel-body">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>Godzina</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <template ngFor let-visit [ngForOf]="listVisits">
+          <tr>
+            <td>{{visit.date}}</td>
+            <td>{{visit.time}}</td>
+            <td><button type="submit" (click)="deleteVisitsList(visit)" class="btn btn-link">Usuń</button></td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+  </div>
+  <div class="panel-heading">Lista moich przyjęć</div>
+  <div class="panel-body">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>Godzina</th>
+          <th>Ukończona</th>
+          <th>Imię pacjenta</th>
+          <th>Nazwisko pacjenta</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <template ngFor let-visit [ngForOf]="visits">
+          <tr>
+            <td>{{visit.date}}</td>
+            <td>{{visit.time}}</td>
+            <td *ngIf="visit.completed !== false">Tak</td>
+            <td *ngIf="visit.completed !== true">Nie</td>
+            <td>{{visit.user.firstName}}</td>
+            <td>{{visit.user.lastName}}</td>
+            <td *ngIf="visit.completed !== true"><button type="submit" (click)="confirm(visit)" class="btn btn-link">Potwierdz</button></td>
+            <td *ngIf="visit.completed !== false"></td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+  </div>
+</div>

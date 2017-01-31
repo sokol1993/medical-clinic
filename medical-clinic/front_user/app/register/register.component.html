@@ -1,0 +1,167 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <div class="navbar-brand">Przychodnia Lekarska</div>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a routerLink="/addDoctors" routerLinkActive="active">Zarejestruj doktora</a></li>
+      <li><a routerLink="/doctors" routerLinkActive="active">Nasi doktorzy</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <a routerLink="/register" routerLinkActive="active"><button type="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-user"></span> Zarejestruj się</button></a>
+      <a routerLink="/login" routerLinkActive="active"><button type="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-log-in"></span> Zaloguj się</button></a>
+    </ul>
+  </div>
+</nav>
+<div class="btn-group">
+    <button *ngFor="let lang of supportedLangs"
+      (click)="selectLang(lang.value)"
+      class="btn btn-default" [class.btn-primary]="isCurrentLang(lang.value)">
+      {{ lang.display }}
+    </button>
+  </div>
+<br>
+<div class="panel panel-primary">
+  <div class="panel-heading">{{"RegisterPage.UserRegister"|translate}}</div>
+  <div class="panel-body">
+    <form (ngSubmit)="addUser()" #registerForm="ngForm">
+      <div class="row">
+        <div class="col-sm-6">
+
+          <div class="form-group">
+            <label for="log">{{"RegisterPage.Login"|translate}}</label>
+            <input type="text" class="form-control" placeholder='{{"RegisterPage.Login"|translate}}' id="log" name="log" [(ngModel)]="login.login" #log="ngModel"
+              (change)="check()" required minlength="5">
+            <div *ngIf="log.errors && (log.dirty || log.touched)" class="alert alert-danger">
+              <div [hidden]="!log.errors.required">{{"RegisterPage.LoginRequired"|translate}}</div>
+              <div [hidden]="!log.errors.minlength">{{"RegisterPage.LoginMinLength"|translate}}</div>
+            </div>
+            <div *ngIf="exists" class="alert alert-danger">
+              <div>{{"RegisterPage.LoginExists"|translate}}</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password">{{"RegisterPage.Password"|translate}}:</label>
+            <input type="password" class="form-control" placeholder='{{"RegisterPage.Password"|translate}}' id="password" name="password" [(ngModel)]="login.password"
+              #password="ngModel" required minlength="5">
+            <div *ngIf="password.errors && (password.dirty || password.touched)" class="alert alert-danger">
+              <div [hidden]="!password.errors.required">{{"RegisterPage.PasswordRequired"|translate}}</div>
+              <div [hidden]="!password.errors.minlength">{{"RegisterPage.PasswordMinLength"|translate}}</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">{{"RegisterPage.Email"|translate}}:</label>
+            <input type="email" class="form-control" placeholder='{{"RegisterPage.Email"|translate}}' id="email" name="email" [(ngModel)]="model.email" #email="ngModel"
+              required>
+            <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
+              <div [hidden]="!email.errors.required">{{"RegisterPage.EmailRequired"|translate}}</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="firstName">{{"RegisterPage.FirstName"|translate}}:</label>
+            <input type="text" class="form-control" placeholder='{{"RegisterPage.FirstName"|translate}}' id="firstName" name="firstName" [(ngModel)]="model.firstName"
+              #firstName="ngModel" pattern="[A-ZĄĘŁŃÓŚŹŻ]{1}[a-ząćęłńóśźż]*" required>
+            <div *ngIf="firstName.errors && (firstName.dirty || firstName.touched)" class="alert alert-danger">
+              <div [hidden]="!firstName.errors.required">{{"RegisterPage.FirstNameRequired"|translate}}</div>
+              <div [hidden]="!firstName.errors.pattern">{{"RegisterPage.FirstNamePattern"|translate}}</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="lastName">{{"RegisterPage.LastName"|translate}}:</label>
+            <input type="text" class="form-control" placeholder='{{"RegisterPage.LastName"|translate}}' id="lastName" name="lastName" [(ngModel)]="model.lastName"
+              #lastName="ngModel" pattern="[A-ZĄĘŁŃÓŚŹŻ]{1}[a-ząćęłńóśźż]*" required>
+            <div *ngIf="lastName.errors && (lastName.dirty || lastName.touched)" class="alert alert-danger">
+              <div [hidden]="!lastName.errors.required">{{"RegisterPage.LastNameRequired"|translate}}</div>
+              <div [hidden]="!lastName.errors.pattern">{{"RegisterPage.LastNamePattern"|translate}}</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="pesel">{{"RegisterPage.Pesel"|translate}}:</label>
+            <input type="text" class="form-control" placeholder='{{"RegisterPage.Pesel"|translate}}' id="pesel" name="pesel" [(ngModel)]="model.pesel" #pesel="ngModel"
+              required pattern="[0-9]{11}">
+            <div *ngIf="pesel.errors && (pesel.dirty || pesel.touched)" class="alert alert-danger">
+              <div [hidden]="!pesel.errors.required">{{"RegisterPage.PeselRequired"|translate}}</div>
+              <div [hidden]="!pesel.errors.pattern">{{"RegisterPage.PeselPattern"|translate}}</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="dateOfBirth">{{"RegisterPage.DateOfBirth"|translate}}:</label>
+            <input type="date" max="{{maxDate}}" class="form-control" id="dateOfBirth" name="dateOfBirth" [(ngModel)]="model.dateOfBirth"
+              #dateOfBirth="ngModel" required>
+
+            <div *ngIf="dateOfBirth.errors && (dateOfBirth.dirty || dateOfBirth.touched)" class="alert alert-danger">
+              <div [hidden]="!dateOfBirth.errors.required">{{"RegisterPage.DateOfBirthRequired"|translate}}</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-sm-6">
+
+          <div class="form-group">
+            <label for="streetName">{{"RegisterPage.StreetName"|translate}}:</label>
+            <input type="text" class="form-control" placeholder='{{"RegisterPage.StreetName"|translate}}' id="streetName" name="streetName" [(ngModel)]="model.streetName"
+              #streetName="ngModel" pattern="[A-ZĄĘŁŃÓŚŹŻ]{1}[a-ząćęłńóśźż]*" required>
+            <div *ngIf="streetName.errors && (streetName.dirty || streetName.touched)" class="alert alert-danger">
+              <div [hidden]="!streetName.errors.required">{{"RegisterPage.StreetNameRequired"|translate}}</div>
+              <div [hidden]="!streetName.errors.pattern">{{"RegisterPage.StreetNamePattern"|translate}}</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="streetNumber">{{"RegisterPage.StreetNumber"|translate}}:</label>
+            <input type="text" class="form-control" placeholder='{{"RegisterPage.StreetNumber"|translate}}' id="streetNumber" name="streetNumber" [(ngModel)]="model.streetNumber"
+              #streetNumber="ngModel" pattern="[0-9]*" required>
+            <div *ngIf="streetNumber.errors && (streetNumber.dirty || streetNumber.touched)" class="alert alert-danger">
+              <div [hidden]="!streetNumber.errors.required">{{"RegisterPage.StreetNumberRequired"|translate}}</div>
+              <div [hidden]="!streetNumber.errors.pattern">{{"RegisterPage.StreetNumberPattern"|translate}}</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="homeNumber">{{"RegisterPage.HomeNumber"|translate}}:</label>
+            <input type="text" class="form-control" placeholder='{{"RegisterPage.HomeNumber"|translate}}' id="homeNumber" name="homeNumber" [(ngModel)]="model.homeNumber"
+              #homeNumber="ngModel" pattern="[0-9]*">
+            <div *ngIf="homeNumber.errors && (homeNumber.dirty || homeNumber.touched)" class="alert alert-danger">
+              <div [hidden]="!homeNumber.errors.pattern">{{"RegisterPage.HomeNumberPattern"|translate}}</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="postcode">{{"RegisterPage.Postcode"|translate}}:</label>
+            <input type="text" class="form-control" placeholder='{{"RegisterPage.Postcode"|translate}}' id="postcode" name="postcode" [(ngModel)]="model.postcode"
+              #postcode="ngModel" pattern="[0-9]{2}-[0-9]{3}" required>
+            <div *ngIf="postcode.errors && (postcode.dirty || postcode.touched)" class="alert alert-danger">
+              <div [hidden]="!postcode.errors.required">{{"RegisterPage.PostcodeRequired"|translate}}</div>
+              <div [hidden]="!postcode.errors.pattern">{{"RegisterPage.PostcodePattern"|translate}}</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="city">{{"RegisterPage.City"|translate}}:</label>
+            <input type="text" class="form-control" placeholder='{{"RegisterPage.City"|translate}}' id="city" name="city" [(ngModel)]="model.city" #city="ngModel"
+              pattern="[A-ZĄĘŁŃÓŚŹŻ]{1}[a-ząćęłńóśźż]*" required>
+            <div *ngIf="city.errors && (city.dirty || city.touched)" class="alert alert-danger">
+              <div [hidden]="!city.errors.required">{{"RegisterPage.CityRequired"|translate}}</div>
+              <div [hidden]="!city.errors.pattern">{{"RegisterPage.CityPattern"|translate}}</div>
+            </div>
+          </div>
+          
+          <div><re-captcha (captchaResponse)="handleCorrectCaptcha($event)" site_key="6LdaTg0UAAAAAFEkrcXGhKP0uPlLXu8sBKLrQIzl"></re-captcha></div>
+
+        </div>
+
+      </div>
+      <br>
+      <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> {{"RegisterPage.RegisterIn"|translate}}</button>
+
+    </form>
+  </div>
+</div>
+
